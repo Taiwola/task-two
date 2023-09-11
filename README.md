@@ -1,73 +1,157 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+Documenting a RESTful API involves providing clear and comprehensive information on how to use the API, including its endpoints, request/response formats, authentication, and more. Below is a template for documenting a "Person" RESTful API:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Person RESTful API Documentation
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Table of Contents
 
-## Description
+- [Introduction](#introduction)
+- [Authentication](#authentication)
+- [Base URL](#base-url)
+- [Endpoints](#endpoints)
+  - [1. Get All Persons](#1-get-all-persons)
+  - [2. Get Person by ID](#2-get-person-by-id)
+  - [3. Create a Person](#3-create-a-person)
+  - [4. Update a Person](#4-update-a-person)
+  - [5. Delete a Person](#5-delete-a-person)
+  - [6. Search Persons by Name](#6-search-persons-by-name)
+- [Request/Response Formats](#requestresponse-formats)
+  - [Person Object](#person-object)
+- [Error Handling](#error-handling)
+- [Sample API Usage](#sample-api-usage)
+- [Testing Instructions](#testing-instructions)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Introduction
 
-## Installation
+Welcome to the Person RESTful API documentation. This API allows you to perform CRUD (Create, Read, Update, Delete) operations on person resources. It also provides a search feature to find persons by name.
 
-```bash
-$ npm install
+## Authentication
+
+Authentication is not required for public access to this API. However, it's recommended to implement authentication and authorization mechanisms in a production environment for security.
+
+## Base URL
+
+The base URL for all API endpoints is:
+
+```
+https://api.example.com/api/person
 ```
 
-## Running the app
+## Endpoints
 
-```bash
-# development
-$ npm run start
+### 1. Get All Persons
 
-# watch mode
-$ npm run start:dev
+- **Endpoint**: `GET /`
+- **Description**: Retrieve a list of all persons.
+- **Response**: List of [Person Objects](#person-object).
 
-# production mode
-$ npm run start:prod
+### 2. Get Person by NAME
+
+- **Endpoint**: `GET /{name}`
+- **Description**: Retrieve a person by their unique ID.
+- **Parameters**:
+  - `{name}` (integer): The unique identifier of the person.
+- **Response**: [Person Object](#person-object).
+
+### 3. Create a Person
+
+- **Endpoint**: `POST /`
+- **Description**: Create a new person.
+- **Request Body**: [Person Object](#person-object).
+- **Response**: [Person Object](#person-object).
+
+### 4. Update a Person
+
+- **Endpoint**: `PUT /{name}`
+- **Description**: Update an existing person by their ID.
+- **Parameters**:
+  - `{name}` (integer): The unique identifier of the person to be updated.
+- **Request Body**: [Person Object](#person-object).
+- **Response**: [Person Object](#person-object).
+
+### 5. Delete a Person
+
+- **Endpoint**: `DELETE /{name}`
+- **Description**: Delete a person by their ID.
+- **Parameters**:
+  - `{id}` (integer): The unique identifier of the person to be deleted.
+- **Response**: Status code 204 (No Content) on success.
+
+### 6. Search Persons by Name
+
+- **Endpoint**: `GET /query`
+- **Description**: Retrieve a list of persons by name.
+- **Parameters**:
+  - `name` (string): The name to search for.
+- **Response**: List of [Person Objects](#person-object).
+
+## Request/Response Formats
+
+### Person Object
+
+```json
+{
+  "id": 1,
+ "name": john doe
+}
 ```
 
-## Test
+- `id` (string): The unique identifier of the person (auto-generated).
+- `name` (string): The name of the person.
 
-```bash
-# unit tests
-$ npm run test
+## Error Handling
 
-# e2e tests
-$ npm run test:e2e
+- The API returns appropriate HTTP status codes and error messages in case of errors. Common status codes include:
+  - 200 OK: Successful request.
+  - 201 Created: Successful creation of a resource.
+  - 204 No Content: Successful deletion of a resource.
+  - 400 Bad Request: Invalid request format or missing parameters.
+  - 404 Not Found: Resource not found.
+  - 500 Internal Server Error: Server-side error.
 
-# test coverage
-$ npm run test:cov
-```
+## Sample API Usage
 
-## Support
+Here are some examples of how to use the API:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **Get all persons**:
+  ```
+  GET https://api.example.com/api/person
+  ```
 
-## Stay in touch
+- **Get person by NAME**:
+  ```
+  GET https://api.example.com/api/person/name
+  ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Create a person**:
+  ```
+  POST https://api.example.com/api/person
+  Request Body:
+  {
+    "name": "john doe",
+  }
+  ```
 
-## License
+- **Update a person**:
+  ```
+  PATCH https://api.example.com/api/person/name
+  Request Body:
+  {
+    "name": "Updated",
+  }
+  ```
 
-Nest is [MIT licensed](LICENSE).
+- **Delete a person**:
+  ```
+  DELETE https://api.example.com/api/person/name
+  ```
+
+- **Search persons by name**:
+  ```
+  GET https://api.example.com/api/persons/query?name=John
+  ```
+
+## Testing Instructions
+
+To test the API endpoints, you can use tools like `curl` or Postman. Ensure that you include valid request bodies and parameters as described in the documentation.
+POSTMAN DOCUMENTATION: https://documenter.getpostman.com/view/26737003/2s9YC1XZwj
+UML DIAGRAM: https://drive.google.com/file/d/1QjrJMf0nOPFAI0E1HlB1Pgna5zc71A-B/view?usp=sharing
