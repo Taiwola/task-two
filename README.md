@@ -59,7 +59,7 @@ https://api.example.com/api/person
 
 ### 4. Update a Person
 
-- **Endpoint**: `PUT /{name}`
+- **Endpoint**: `PATCH /{name}`
 - **Description**: Update an existing person by their ID.
 - **Parameters**:
   - `{name}` (integer): The unique identifier of the person to be updated.
