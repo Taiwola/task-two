@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const person_service_1 = require("./person.service");
 const create_person_dto_1 = require("./dto/create-person.dto");
 const update_person_dto_1 = require("./dto/update-person.dto");
+const validate_string_1 = require("./validator/validate-string");
 let PersonController = class PersonController {
     constructor(personService) {
         this.personService = personService;
@@ -34,9 +35,15 @@ let PersonController = class PersonController {
         return await this.personService.findOne(name);
     }
     async update(name, updatePersonDto) {
+        if (typeof name !== 'string') {
+            throw new common_1.BadRequestException(`Invalid param ${name}`);
+        }
         return await this.personService.update(name, updatePersonDto);
     }
     async remove(name) {
+        if (typeof name !== 'string') {
+            throw new common_1.BadRequestException(`Invalid param ${name}`);
+        }
         return await this.personService.remove(name);
     }
 };
@@ -56,21 +63,21 @@ __decorate([
 ], PersonController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)('/query'),
-    __param(0, (0, common_1.Query)('name')),
+    __param(0, (0, common_1.Query)('name', validate_string_1.NameValidationPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PersonController.prototype, "queryName", null);
 __decorate([
     (0, common_1.Get)(':name'),
-    __param(0, (0, common_1.Param)('name')),
+    __param(0, (0, common_1.Param)('name', validate_string_1.NameValidationPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PersonController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':name'),
-    __param(0, (0, common_1.Param)('name')),
+    __param(0, (0, common_1.Param)('name', new validate_string_1.NameValidationPipe())),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_person_dto_1.UpdatePersonDto]),
@@ -78,7 +85,7 @@ __decorate([
 ], PersonController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':name'),
-    __param(0, (0, common_1.Param)('name')),
+    __param(0, (0, common_1.Param)('name', validate_string_1.NameValidationPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

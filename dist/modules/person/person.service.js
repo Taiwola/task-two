@@ -31,9 +31,16 @@ let PersonService = class PersonService {
     }
     async findOne(name) {
         const findPerson = await this.personModel.findOne({ name: name });
+        if (!findPerson) {
+            throw new common_1.HttpException('User does not exist', common_1.HttpStatus.NOT_FOUND);
+        }
         return findPerson;
     }
     async update(name, updatePersonDto) {
+        const findPerson = await this.findOne(name);
+        if (!findPerson) {
+            throw new common_1.HttpException('User does not exist', common_1.HttpStatus.NOT_FOUND);
+        }
         return await this.personModel.findOneAndUpdate({ name: name }, Object.assign({}, updatePersonDto), { new: true });
     }
     async getPersonByName(name) {
@@ -44,6 +51,10 @@ let PersonService = class PersonService {
         return person;
     }
     async remove(name) {
+        const findPerson = await this.findOne(name);
+        if (!findPerson) {
+            throw new common_1.HttpException('User does not exist', common_1.HttpStatus.NOT_FOUND);
+        }
         return await this.personModel.findOneAndRemove({ name: name });
     }
 };

@@ -23,10 +23,17 @@ export class PersonService {
 
   async findOne(name: string) {
     const findPerson = await this.personModel.findOne({ name: name });
+    if (!findPerson) {
+      throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
+    }
     return findPerson;
   }
 
   async update(name: string, updatePersonDto: UpdatePersonDto) {
+    const findPerson = await this.findOne(name);
+    if (!findPerson) {
+      throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
+    }
     return await this.personModel.findOneAndUpdate(
       { name: name },
       { ...updatePersonDto },
@@ -43,6 +50,10 @@ export class PersonService {
   }
 
   async remove(name: string) {
+    const findPerson = await this.findOne(name);
+    if (!findPerson) {
+      throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
+    }
     return await this.personModel.findOneAndRemove({ name: name });
   }
 }
