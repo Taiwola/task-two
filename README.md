@@ -151,5 +151,7 @@ Here are some examples of how to use the API:
 ## Testing Instructions
 
 To test the API endpoints, you can use tools like `curl` or Postman. Ensure that you include valid request bodies and parameters as described in the documentation.
+
 POSTMAN DOCUMENTATION: https://documenter.getpostman.com/view/26737003/2s9YC1XZwj
+
 UML DIAGRAM: https://drive.google.com/file/d/1QjrJMf0nOPFAI0E1HlB1Pgna5zc71A-B/view?usp=sharing
