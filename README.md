@@ -44,7 +44,7 @@ https://api.example.com/api/person
 
 ### 2. Get Person by NAME
 
-- **Endpoint**: `GET /{name}`
+- **Endpoint**: `GET /api/person/{name}`
 - **Description**: Retrieve a person by their unique ID.
 - **Parameters**:
   - `{name}` (string): The unique identifier of the person.
@@ -52,14 +52,14 @@ https://api.example.com/api/person
 
 ### 3. Create a Person
 
-- **Endpoint**: `POST /`
+- **Endpoint**: `POST /api/person`
 - **Description**: Create a new person.
 - **Request Body**: [Person Object](#person-object).
 - **Response**: [Person Object](#person-object).
 
 ### 4. Update a Person
 
-- **Endpoint**: `PATCH /{name}`
+- **Endpoint**: `PATCH /api/person/{name}`
 - **Description**: Update an existing person by their ID.
 - **Parameters**:
   - `{name}` (string): The unique identifier of the person to be updated.
@@ -68,7 +68,7 @@ https://api.example.com/api/person
 
 ### 5. Delete a Person
 
-- **Endpoint**: `DELETE /{name}`
+- **Endpoint**: `DELETE /api/person/{name}`
 - **Description**: Delete a person by their ID.
 - **Parameters**:
   - `{name}` (string): The unique identifier of the person to be deleted.
@@ -76,7 +76,7 @@ https://api.example.com/api/person
 
 ### 6. Search Persons by Name
 
-- **Endpoint**: `GET /query`
+- **Endpoint**: `GET /api/person/query`
 - **Description**: Retrieve a list of persons by name.
 - **Parameters**:
   - `name` (string): The name to search for.
