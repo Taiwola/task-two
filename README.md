@@ -1,5 +1,3 @@
-Documenting a RESTful API involves providing clear and comprehensive information on how to use the API, including its endpoints, request/response formats, authentication, and more. Below is a template for documenting a "Person" RESTful API:
-
 # Person RESTful API Documentation
 
 ## Table of Contents
