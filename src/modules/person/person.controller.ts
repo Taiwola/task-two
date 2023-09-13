@@ -7,55 +7,51 @@ import {
   Param,
   Delete,
   Query,
-  BadRequestException,
 } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
-import { NameValidationPipe } from './validator/validate-string';
 
 @Controller('api/person')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
+  // Create a new person
   @Post()
   async create(@Body() createPersonDto: CreatePersonDto) {
     return this.personService.create(createPersonDto);
   }
 
+  // Retrieve all persons
   @Get()
   async findAll() {
     return this.personService.findAll();
   }
 
+  // Retrieve a person by name using a query parameter
   @Get('/query')
-  async queryName(@Query('name', NameValidationPipe) name: string) {
+  async queryName(@Query('name') name: string) {
     return await this.personService.getPersonByName(name);
   }
 
+  // Retrieve a person by their name
   @Get(':name')
-  async findOne(@Param('name', NameValidationPipe) name: string) {
+  async findOne(@Param('name') name: string) {
     return await this.personService.findOne(name);
   }
 
+  // Update a person by their name
   @Patch(':name')
   async update(
-    @Param('name', new NameValidationPipe()) name: string,
+    @Param('name') name: string,
     @Body() updatePersonDto: UpdatePersonDto,
   ) {
-    if (typeof name !== 'string') {
-      throw new BadRequestException(`Invalid param ${name}`);
-    }
-
     return await this.personService.update(name, updatePersonDto);
   }
 
+  // Delete a person by their name
   @Delete(':name')
-  async remove(@Param('name', NameValidationPipe) name: string) {
-    if (typeof name !== 'string') {
-      throw new BadRequestException(`Invalid param ${name}`);
-    }
-
+  async remove(@Param('name') name: string) {
     return await this.personService.remove(name);
   }
 }
